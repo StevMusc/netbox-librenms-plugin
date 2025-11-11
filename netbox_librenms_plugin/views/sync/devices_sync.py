@@ -48,6 +48,7 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
         device_data = {
             "hostname": data.get("hostname"),
             "snmp_version": data.get("snmp_version"),
+            "force_add": data.get("force_add"),
         }
         if device_data["snmp_version"] == "v2c":
             device_data["community"] = data.get("community")
