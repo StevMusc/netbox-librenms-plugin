@@ -72,7 +72,7 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
             #device_data["community"] = form.cleaned_data["community"],
             device_data.update(
                 {
-                    device_data["community"] = data.get("community"),
+                    "community": data.get("community"),
                 }
             )
             
