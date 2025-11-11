@@ -122,6 +122,15 @@ class AddToLibreICMPForm(forms.Form):
         widget=forms.TextInput(attrs={"id": "id_hostname_icmp"})
     )
 
+    # New field for force_add
+    force_add = forms.BooleanField(
+        label="Force Add",
+        required=False,
+        initial=False,
+        widget=forms.CheckboxInput(attrs={"id": "id_force_add_icmp"}),
+        help_text="Check to force adding the device even if device is unreachable."
+    )
+
 class AddToLIbreSNMPV2(forms.Form):
     """
     Form for adding devices to LibreNMS using SNMPv2 authentication.
