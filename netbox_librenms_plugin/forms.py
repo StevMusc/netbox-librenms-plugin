@@ -198,7 +198,7 @@ class AddToLIbreSNMPV3(forms.Form):
         label="Force Add",
         required=False,
         initial=False,
-        widget=forms.CheckboxInput(attrs={"id": "id_force_add_v2"}),
+        widget=forms.CheckboxInput(attrs={"id": "id_force_add_v3"}),
         help_text="Check to force adding the device even if device is unreachable."
     )
 
