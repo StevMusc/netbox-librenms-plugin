@@ -111,7 +111,7 @@ class InterfaceTypeMappingFilterForm(NetBoxModelFilterSetForm):
 
     model = InterfaceTypeMapping
 
-class AddToLibreICMPOnly(forms.Form):
+class AddToLIbreICMPOnly(forms.Form):
     """
     Form for adding devices to LibreNMS with ICMP only (no SNMP).
     """
