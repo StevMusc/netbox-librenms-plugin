@@ -601,7 +601,7 @@
                         {{ v3form.hostname }}
                     </div>
                     {% for field in v3form %}
-                    {% if field.name != 'hostname' %}
+                    {% if field.name != 'hostname' and field.name != 'force_add' %}
                     <div class="mb-3">
                         {{ field.label_tag }}
                         {{ field }}
