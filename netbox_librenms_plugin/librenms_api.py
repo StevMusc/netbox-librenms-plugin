@@ -367,15 +367,10 @@ class LibreNMSAPI:
             "snmp_disable": data["snmp_disable"],
         }
 
-        #if data["snmp_version"] == "icmp":
-            #"health_monitor": data["snmp_disable"]
-
         if data["snmp_version"] == "v2c":
             payload["community"] = data["community"]
-            #payload["health_monitor"] = data["snmp_disable"]
             
         elif data["snmp_version"] == "v3":
-            #payload["health_monitor"] = data["snmp_disable"]
             payload.update(
                 {
                     "authlevel": data["authlevel"],
