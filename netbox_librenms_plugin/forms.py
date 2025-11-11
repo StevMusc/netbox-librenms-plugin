@@ -129,6 +129,14 @@ class AddToLIbreSNMPV2(forms.Form):
     )
     community = forms.CharField(label="SNMP Community", max_length=255, required=True)
 
+    # New field for force_add
+    force_add = forms.BooleanField(
+        label="Force Add",
+        required=False,
+        initial=False,
+        widget=forms.CheckboxInput(attrs={"id": "id_force_add_v2"}),
+        help_text="Check to force adding the device even if device is unreachable."
+    )
 
 class AddToLIbreSNMPV3(forms.Form):
     """
@@ -185,6 +193,14 @@ class AddToLIbreSNMPV3(forms.Form):
         required=True,
     )
 
+    # New field for force_add
+    force_add = forms.BooleanField(
+        label="Force Add",
+        required=False,
+        initial=False,
+        widget=forms.CheckboxInput(attrs={"id": "id_force_add_v2"}),
+        help_text="Check to force adding the device even if device is unreachable."
+    )
 
 class DeviceStatusFilterForm(NetBoxModelFilterSetForm):
     """
