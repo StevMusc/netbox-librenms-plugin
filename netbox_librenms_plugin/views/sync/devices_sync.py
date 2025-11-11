@@ -19,9 +19,9 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
         """Return the correct form class based on the SNMP version."""
         if self.request.POST.get("snmp_version") == "v2c":
             return AddToLIbreSNMPV2
-        else if self.request.POST.get("snmp_version") == "v3":
+        elif self.request.POST.get("snmp_version") == "v3":
             return AddToLIbreSNMPV3
-        else if self.request.POST.get("snmp_version") == "icmp":
+        elif self.request.POST.get("snmp_version") == "icmp":
             return AddToLibreICMPOnly
         else:
             return None
@@ -55,7 +55,12 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
             "snmp_version": data.get("snmp_version"),
             "force_add": data.get("force_add"),
         }
-        if device_data["snmp_version"] == "v2c":
+        if device_data["snmp_version"] == "icmp":
+            payload = {
+                "hostname": hostname,
+                # "ping_only": True  # LibreNMS API flag for ICMP-only discovery
+        }
+        elif device_data["snmp_version"] == "v2c":
             device_data["community"] = data.get("community")
         elif device_data["snmp_version"] == "v3":
             device_data.update(
