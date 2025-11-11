@@ -584,6 +584,11 @@
                         {{ v2form.community.label_tag }}
                         {{ v2form.community }}
                     </div>
+                    <div class="mb-3">
+                        {{ v2form.force_add.label_tag }}
+                        {{ v2form.force_add }}
+                        <small class="form-text text-muted">{{ form.force_add.help_text }}</small>
+                    </div>              
                     <button type="submit" class="btn btn-primary">Add Device</button>
                 </form>
 
@@ -604,6 +609,11 @@
                     </div>
                     {% endif %}
                     {% endfor %}
+                    <div class="mb-3">
+                        {{ v3form.force_add.label_tag }}
+                        {{ v3form.force_add }}
+                        <small class="form-text text-muted">{{ form.force_add.help_text }}</small>
+                    </div>                    
                     <button type="submit" class="btn btn-primary">Add Device</button>
                 </form>
             </div>
