@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import FormView
 from virtualization.models import VirtualMachine
 
-from netbox_librenms_plugin.forms import AddToLibreICMPOnly, AddToLIbreSNMPV2, AddToLIbreSNMPV3
+from netbox_librenms_plugin.forms import AddToLIbreICMPOnly, AddToLIbreSNMPV2, AddToLIbreSNMPV3
 from netbox_librenms_plugin.views.mixins import LibreNMSAPIMixin
 
 
