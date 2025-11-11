@@ -50,12 +50,17 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
     def form_valid(self, form):
         """Handle the form submission"""
         data = form.cleaned_data
+        
+        # Global device payloads, regardless the monitor type.
         device_data = {
             "hostname": data.get("hostname"),
             "snmp_version": data.get("snmp_version"),
             "force_add": data.get("force_add"),
+            "snmp_disable": False,
+            
         }
         if device_data["snmp_version"] == "icmp":
+            # If the user submitted icmp check only, then change snmp_disable payload to true
             device_data.update(
                 {
                     "snmp_disable": True,
@@ -63,7 +68,6 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
             )
         elif device_data["snmp_version"] == "v2c":
             device_data["community"] = data.get("community"),
-            #"snmp_disable": False,
             
         elif device_data["snmp_version"] == "v3":
             #"snmp_disabled": False,
