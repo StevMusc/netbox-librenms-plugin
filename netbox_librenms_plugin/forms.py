@@ -122,6 +122,10 @@ class AddToLIbreICMPOnly(forms.Form):
         widget=forms.TextInput(attrs={"id": "id_hostname_icmp"})
     )
 
+    snmp_version = forms.CharField(
+        widget=forms.HiddenInput(attrs={"id": "id_force_add_icmp"})
+    )
+
     # New field for force_add
     force_add = forms.BooleanField(
         label="Force Add",
