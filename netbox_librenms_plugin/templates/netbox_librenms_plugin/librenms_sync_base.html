@@ -607,13 +607,14 @@
                         {{ field.label_tag }}
                         {{ field }}
                     </div>
-                    {% endif %}
-                    {% endfor %}
                     <div class="mb-3">
                         {{ v3form.force_add.label_tag }}
                         {{ v3form.force_add }}
                         <small class="form-text text-muted">{{ form.force_add.help_text }}</small>
-                    </div>                    
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                
                     <button type="submit" class="btn btn-primary">Add Device</button>
                 </form>
             </div>
