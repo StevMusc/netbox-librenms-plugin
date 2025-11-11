@@ -572,6 +572,18 @@
                     </select>
                 </div>
 
+                <!-- ICMP form -->
+                <form method="post" action="{% url 'plugins:netbox_librenms_plugin:add_device_to_librenms' object.id %}" 
+                    id="icmp-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="snmp_version" value="icmp">
+                    <div class="mb-3">
+                        {{ icmpform.hostname.label_tag }}
+                        {{ icmpform.hostname }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Device (ICMP Only)</button>
+                </form>
+                
                 <!-- SNMPv2c form -->
                 <form method="post" action="{% url 'plugins:netbox_librenms_plugin:add_device_to_librenms' object.id %}"
                     id="snmpv2-form">
