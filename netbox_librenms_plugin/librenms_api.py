@@ -371,7 +371,7 @@ class LibreNMSAPI:
             payload["community"] = data["community"]
             #payload["health_monitor"] = data["snmp_disable"]
             
-        elif data["health_monitor"] == "v3":
+        elif data["snmp_version"] == "v3":
             #payload["health_monitor"] = data["snmp_disable"]
             payload.update(
                 {
