@@ -601,16 +601,16 @@
                         {{ v3form.hostname.label_tag }}
                         {{ v3form.hostname }}
                     </div>
+                    <div class="mb-3">
+                        {{ v3form.force_add.label_tag }}
+                        {{ v3form.force_add }}
+                        <small class="form-text text-muted">{{ form.force_add.help_text }}</small>
+                    </div>
                     {% for field in v3form %}
                     {% if field.name != 'hostname' %}
                     <div class="mb-3">
                         {{ field.label_tag }}
                         {{ field }}
-                    </div>
-                    <div class="mb-3">
-                        {{ v3form.force_add.label_tag }}
-                        {{ v3form.force_add }}
-                        <small class="form-text text-muted">{{ form.force_add.help_text }}</small>
                     </div>
                     {% endif %}
                     {% endfor %}
