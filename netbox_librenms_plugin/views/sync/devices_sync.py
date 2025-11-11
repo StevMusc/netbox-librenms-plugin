@@ -19,7 +19,12 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
         """Return the correct form class based on the SNMP version."""
         if self.request.POST.get("snmp_version") == "v2c":
             return AddToLIbreSNMPV2
-        return AddToLIbreSNMPV3
+        else if self.request.POST.get("snmp_version") == "v3":
+            return AddToLIbreSNMPV3
+        else if self.request.POST.get("snmp_version") == "icmp":
+            return AddToLibreICMPOnly
+        else:
+            return None
 
     def get_object(self, object_id):
         """Retrieve the object (Device or VirtualMachine)."""
