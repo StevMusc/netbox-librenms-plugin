@@ -364,7 +364,7 @@ class LibreNMSAPI:
             "hostname": data["hostname"],
             "snmpver": data["snmp_version"],
             "force_add": data["force_add"],
-            "health_monitor": data["snmp_disable"],
+            "snmp_disable": data["snmp_disable"],
         }
 
         #if data["snmp_version"] == "icmp":
