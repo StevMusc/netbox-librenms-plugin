@@ -60,8 +60,10 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
             
         elif device_data["snmp_version"] == "v2c":
             device_data["community"] = data.get("community")
+            device_data["snmp_disable"] = False
             
         elif device_data["snmp_version"] == "v3":
+            device_data["snmp_disable"] = False
             device_data.update(
                 {
                     "authlevel": data.get("authlevel"),
