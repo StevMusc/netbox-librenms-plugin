@@ -22,7 +22,7 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
         elif self.request.POST.get("snmp_version") == "v3":
             return AddToLIbreSNMPV3
         elif self.request.POST.get("snmp_version") == "icmp":
-            return AddToLibreICMPOnly
+            return AddToLIbreICMPOnly
         else:
             return None
 
