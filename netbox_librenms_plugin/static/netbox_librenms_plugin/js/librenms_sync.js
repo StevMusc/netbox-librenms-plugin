@@ -494,14 +494,21 @@ function toggleSNMPForms() {
 
     const v2Form = document.getElementById('snmpv2-form');
     const v3Form = document.getElementById('snmpv3-form');
+    const icmpForm = document.getElementById('icmp-form');
 
-    if (version === 'v2c') {
-        v2Form.style.display = 'block';
-        v3Form.style.display = 'none';
-    } else {
-        v2Form.style.display = 'none';
-        v3Form.style.display = 'block';
-    }
+  if (version === 'v2c') {
+    v2Form.style.display = 'block';
+    v3Form.style.display = 'none';
+    icmpForm.style.display = 'none';
+  } else if (version === 'v3') {
+    v2Form.style.display = 'none';
+    v3Form.style.display = 'block';
+    icmpForm.style.display = 'none';
+  } else if (version === 'icmp') {
+    v2Form.style.display = 'none';
+    v3Form.style.display = 'none';
+    icmpForm.style.display = 'block';
+  }
 }
 
 // Function to initialize modal-specific scripts
