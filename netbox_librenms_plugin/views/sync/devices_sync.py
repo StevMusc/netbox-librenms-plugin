@@ -56,12 +56,11 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
             "force_add": data.get("force_add"),
         }
         if device_data["snmp_version"] == "icmp":
-            payload = {
-                "hostname": hostname,
-                # "ping_only": True  # LibreNMS API flag for ICMP-only discovery
-        }
+            device_data["snmp_disable"] = True
+            
         elif device_data["snmp_version"] == "v2c":
             device_data["community"] = data.get("community")
+            
         elif device_data["snmp_version"] == "v3":
             device_data.update(
                 {
