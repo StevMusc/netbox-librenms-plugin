@@ -60,7 +60,7 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
             
         }
         if device_data["snmp_version"] == "icmp":
-            # If the user submitted icmp check only, then change snmp_disable payload to true
+            # If the user submited icmp check only, change snmp_disable payload to true
             device_data.update(
                 {
                     "snmp_disable": True,
