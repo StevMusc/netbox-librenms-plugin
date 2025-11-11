@@ -364,8 +364,11 @@ class LibreNMSAPI:
             "hostname": data["hostname"],
             "snmpver": data["snmp_version"],
             "force_add": data["force_add"],
-            #"health_monitor": data["snmp_disable"],
+            "health_monitor": data["snmp_disable"],
         }
+
+        #if data["snmp_version"] == "icmp":
+            #"health_monitor": data["snmp_disable"]
 
         if data["snmp_version"] == "v2c":
             payload["community"] = data["community"]
