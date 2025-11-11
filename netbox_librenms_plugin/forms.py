@@ -111,6 +111,16 @@ class InterfaceTypeMappingFilterForm(NetBoxModelFilterSetForm):
 
     model = InterfaceTypeMapping
 
+class AddToLibreICMPForm(forms.Form):
+    """
+    Form for adding devices to LibreNMS with ICMP only (no SNMP).
+    """
+    hostname = forms.CharField(
+        label="Hostname/IP",
+        max_length=255,
+        required=True,
+        widget=forms.TextInput(attrs={"id": "id_hostname_icmp"})
+    )
 
 class AddToLIbreSNMPV2(forms.Form):
     """
