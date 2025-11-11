@@ -364,11 +364,15 @@ class LibreNMSAPI:
             "hostname": data["hostname"],
             "snmpver": data["snmp_version"],
             "force_add": data["force_add"],
+            "health_monitor": data["snmp_disable"],
         }
 
         if data["snmp_version"] == "v2c":
             payload["community"] = data["community"]
-        elif data["snmp_version"] == "v3":
+            payload["health_monitor"] = data["snmp_disable"]
+            
+        elif data["health_monitor"] == "v3":
+            payload["health_monitor"] = data["snmp_disable"]
             payload.update(
                 {
                     "authlevel": data["authlevel"],
