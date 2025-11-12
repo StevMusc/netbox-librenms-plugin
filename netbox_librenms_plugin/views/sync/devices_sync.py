@@ -67,12 +67,12 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
                 }
             )
         elif device_data["snmp_version"] == "v2c":
-            #device_data["community"] = data.get("community"),
-            device_data.update(
-                {
-                    "community": data.get("community"),
-                }
-            )
+            device_data["community"] = data.get("community")
+            #device_data.update(
+                #{
+                    #"community": data.get("community"),
+                #}
+            #)
             
         elif device_data["snmp_version"] == "v3":
             device_data.update(
