@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import FormView
 from virtualization.models import VirtualMachine
 
-from netbox_librenms_plugin.forms import AddToLIbreSNMPV2, AddToLIbreSNMPV3
+from netbox_librenms_plugin.forms import AddToLIbreICMPOnly, AddToLIbreSNMPV2, AddToLIbreSNMPV3
 from netbox_librenms_plugin.views.mixins import LibreNMSAPIMixin
 
 
@@ -19,7 +19,12 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
         """Return the correct form class based on the SNMP version."""
         if self.request.POST.get("snmp_version") == "v2c":
             return AddToLIbreSNMPV2
-        return AddToLIbreSNMPV3
+        elif self.request.POST.get("snmp_version") == "v3":
+            return AddToLIbreSNMPV3
+        elif self.request.POST.get("snmp_version") == "icmp":
+            return AddToLIbreICMPOnly
+        else:
+            return None
 
     def get_object(self, object_id):
         """Retrieve the object (Device or VirtualMachine)."""
@@ -45,12 +50,25 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
     def form_valid(self, form):
         """Handle the form submission"""
         data = form.cleaned_data
+        
+        # Global device payloads, regardless the monitor type.
         device_data = {
             "hostname": data.get("hostname"),
             "snmp_version": data.get("snmp_version"),
+            "force_add": data.get("force_add"),
+            "snmp_disable": False,
+            
         }
-        if device_data["snmp_version"] == "v2c":
+        if device_data["snmp_version"] == "icmp":
+            # If the user submited icmp check only, change snmp_disable payload to true
+            device_data.update(
+                {
+                    "snmp_disable": True,
+                }
+            )
+        elif device_data["snmp_version"] == "v2c":
             device_data["community"] = data.get("community")
+            
         elif device_data["snmp_version"] == "v3":
             device_data.update(
                 {

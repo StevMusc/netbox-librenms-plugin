@@ -568,9 +568,26 @@
                     <select class="form-select" onchange="toggleSNMPForms(this.value)">
                         <option value="v2c">SNMPv2c</option>
                         <option value="v3">SNMPv3</option>
+                        <option value="icmp">ICMP Only</option>
                     </select>
                 </div>
 
+                <!-- ICMP form -->
+                <form method="post" action="{% url 'plugins:netbox_librenms_plugin:add_device_to_librenms' object.id %}" 
+                    id="icmp-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="snmp_version" value="icmp">
+                    <div class="mb-3">
+                        {{ icmpform.hostname.label_tag }}
+                        {{ icmpform.hostname }}
+                    </div>
+                    <div class="mb-3">
+                        {{ icmpform.force_add.label_tag }}
+                        {{ icmpform.force_add }}
+                    </div>                
+                    <button type="submit" class="btn btn-primary">Add Device (ICMP Only)</button>
+                </form>
+                
                 <!-- SNMPv2c form -->
                 <form method="post" action="{% url 'plugins:netbox_librenms_plugin:add_device_to_librenms' object.id %}"
                     id="snmpv2-form">
@@ -584,6 +601,10 @@
                         {{ v2form.community.label_tag }}
                         {{ v2form.community }}
                     </div>
+                    <div class="mb-3">
+                        {{ v2form.force_add.label_tag }}
+                        {{ v2form.force_add }}
+                    </div>              
                     <button type="submit" class="btn btn-primary">Add Device</button>
                 </form>
 
@@ -597,13 +618,17 @@
                         {{ v3form.hostname }}
                     </div>
                     {% for field in v3form %}
-                    {% if field.name != 'hostname' %}
+                    {% if field.name != 'hostname' and field.name != 'force_add' %}
                     <div class="mb-3">
                         {{ field.label_tag }}
                         {{ field }}
                     </div>
                     {% endif %}
                     {% endfor %}
+                    <div class="mb-3">
+                        {{ v3form.force_add.label_tag }}
+                        {{ v3form.force_add }}
+                    </div>                       
                     <button type="submit" class="btn btn-primary">Add Device</button>
                 </form>
             </div>

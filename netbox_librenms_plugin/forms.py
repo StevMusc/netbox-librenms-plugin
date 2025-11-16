@@ -111,6 +111,29 @@ class InterfaceTypeMappingFilterForm(NetBoxModelFilterSetForm):
 
     model = InterfaceTypeMapping
 
+class AddToLIbreICMPOnly(forms.Form):
+    """
+    Form for adding devices to LibreNMS with ICMP only (no SNMP).
+    """
+    hostname = forms.CharField(
+        label="Hostname/IP",
+        max_length=255,
+        required=True,
+        widget=forms.TextInput(attrs={"id": "id_hostname_icmp"})
+    )
+
+    snmp_version = forms.CharField(
+        widget=forms.HiddenInput(attrs={"id": "id_force_add_icmp"})
+    )
+
+    # New field for force_add
+    force_add = forms.BooleanField(
+        label="Force Add",
+        required=False,
+        initial=False,
+        widget=forms.CheckboxInput(attrs={"id": "id_force_add_icmp"}),
+        help_text="Check to force adding the device even if device is unreachable."
+    )
 
 class AddToLIbreSNMPV2(forms.Form):
     """
@@ -129,6 +152,14 @@ class AddToLIbreSNMPV2(forms.Form):
     )
     community = forms.CharField(label="SNMP Community", max_length=255, required=True)
 
+    # New field for force_add
+    force_add = forms.BooleanField(
+        label="Force Add",
+        required=False,
+        initial=False,
+        widget=forms.CheckboxInput(attrs={"id": "id_force_add_v2"}),
+        help_text="Check to force adding the device even if device is unreachable."
+    )
 
 class AddToLIbreSNMPV3(forms.Form):
     """
@@ -185,6 +216,14 @@ class AddToLIbreSNMPV3(forms.Form):
         required=True,
     )
 
+    # New field for force_add
+    force_add = forms.BooleanField(
+        label="Force Add",
+        required=False,
+        initial=False,
+        widget=forms.CheckboxInput(attrs={"id": "id_force_add_v3"}),
+        help_text="Check to force adding the device even if device is unreachable."
+    )
 
 class DeviceStatusFilterForm(NetBoxModelFilterSetForm):
     """
