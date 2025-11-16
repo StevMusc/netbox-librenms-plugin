@@ -158,7 +158,7 @@ class LibreNMSAPI:
                 return {"default": f"Default Server ({legacy_url})"}
             return {"default": "Default Server"}
 
-    def get_poller_groups(self):
+    def get_poller_groups(self, obj):
         """
         Fetch poller groups from LibreNMS (only when distributed polling is enabled).
 
