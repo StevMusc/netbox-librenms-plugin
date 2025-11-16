@@ -58,7 +58,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         if getattr(api, "distributed_poller", False):
             success, data = api.get_poller_groups()
             if success:
-                poller_groups = data
+                poller_groups = ["poller1", "poller2"]
             else:
                 poller_group_error = data
 
