@@ -158,6 +158,55 @@ class LibreNMSAPI:
                 return {"default": f"Default Server ({legacy_url})"}
             return {"default": "Default Server"}
 
+    def get_poller_groups(self):
+        """
+        Fetch poller groups from LibreNMS (only when distributed polling is enabled).
+
+        Returns:
+            tuple: (success: bool, data: list | str)
+
+            On success:
+                (True, [ { "id": 0, "group_name": "Default", "descr": "..." }, ... ])
+
+            On failure:
+                (False, "error message")
+        """
+        # If distributed polling is disabled, there is no point in calling the API
+        if not getattr(self, "distributed_poller", False):
+            return False, "Distributed poller mode is disabled in plugin settings"
+
+        cache_key = f"librenms_poller_groups_{self.server_key}"
+        cached = cache.get(cache_key)
+        if cached is not None:
+            return True, cached
+
+        try:
+            # LibreNMS endpoint for poller groups:
+            # GET /api/v0/poller_group
+            response = requests.get(
+                f"{self.librenms_url}/api/v0/poller_group",
+                headers=self.headers,
+                timeout=10,
+                verify=self.verify_ssl,
+            )
+            response.raise_for_status()
+            result = response.json()
+
+            # Expected format:
+            # {
+            #   "status": "ok",
+            #   "get_poller_group": [ { "id": 1, "group_name": "test", "descr": "..." }, ... ],
+            #   "count": 1
+            # }
+            groups = result.get("get_poller_group")
+            if result.get("status") == "ok" and isinstance(groups, list):
+                cache.set(cache_key, groups, timeout=self.cache_timeout)
+                return True, groups
+
+            return False, "Unexpected response format when fetching poller groups"
+        except requests.exceptions.RequestException as e:
+            return False, str(e)
+    
     def get_librenms_id(self, obj):
         """
         Args:
