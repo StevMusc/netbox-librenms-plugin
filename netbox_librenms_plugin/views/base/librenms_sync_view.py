@@ -76,10 +76,10 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 "object": obj,
                 "tab": self.tab,
                 "has_librenms_id": bool(self.librenms_id),
-                "poller_groups": poller_groups,          # list of groups or None
+                "poller_groups": self.poller_groups,          # list of groups or None
                 "poller_group_error": poller_group_error, # optional error msg
                 #"distributed_poller": getattr(api, "distributed_poller", False),
-                "distributed_poller": poller_groups, # static groups test
+                "distributed_poller": self.poller_groups, # static groups test
             }
         )
 
