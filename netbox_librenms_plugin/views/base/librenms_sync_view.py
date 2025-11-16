@@ -52,7 +52,12 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
 
         # test api call to retrieve poller groups
         #api = LibreNMSAPI()
-        poller_groups = ["zobb1", "zobb2", "zobb3"]
+        # TEMP
+        poller_groups = [
+            {"id": 0, "group_name": "Default", "descr": "Default poller group"},
+            {"id": 1, "group_name": "Europe", "descr": "EU region poller"},
+            {"id": 2, "group_name": "North America", "descr": "NA region poller"},
+        ]
         poller_group_error = None
 
         #if getattr(api, "distributed_poller", False):
@@ -71,7 +76,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 "poller_groups": poller_groups,          # list of groups or None
                 "poller_group_error": poller_group_error, # optional error msg
                 #"distributed_poller": getattr(api, "distributed_poller", False),
-                "distributed_poller": ["testing1", "testing2"], # static groups test
+                "distributed_poller": poller_groups, # static groups test
             }
         )
 
