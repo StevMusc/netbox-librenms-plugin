@@ -58,6 +58,9 @@ class LibreNMSAPI:
             self.verify_ssl = get_plugin_config(
                 "netbox_librenms_plugin", "verify_ssl", True
             )
+            self.distributed_poller = get_plugin_config(
+                "netbox_librenms_plugin", "distributed_poller", False
+            )            
 
         if not self.librenms_url or not self.api_token:
             raise ValueError(
