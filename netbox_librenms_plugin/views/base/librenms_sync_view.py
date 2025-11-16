@@ -58,6 +58,9 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
             {"id": 1, "group_name": "Europe", "descr": "EU region poller"},
             {"id": 2, "group_name": "North America", "descr": "NA region poller"},
         ]
+
+        self.poller_group = self.librenms_api.get_poller_groups()
+        
         poller_group_error = None
 
         #if getattr(api, "distributed_poller", False):
@@ -73,10 +76,10 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 "object": obj,
                 "tab": self.tab,
                 "has_librenms_id": bool(self.librenms_id),
-                "poller_groups": poller_groups,          # list of groups or None
+                "poller_groups": poller_group,          # list of groups or None
                 "poller_group_error": poller_group_error, # optional error msg
                 #"distributed_poller": getattr(api, "distributed_poller", False),
-                "distributed_poller": poller_groups, # static groups test
+                "distributed_poller": poller_group, # static groups test
             }
         )
 
