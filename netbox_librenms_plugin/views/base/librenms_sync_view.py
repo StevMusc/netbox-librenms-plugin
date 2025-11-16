@@ -50,12 +50,27 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         # Get context from parent classes (including LibreNMSAPIMixin)
         context = super().get_context_data()
 
+        # test api call to retrieve poller groups
+        api = LibreNMSAPI()
+        poller_groups = None
+        poller_group_error = None
+
+        if getattr(api, "distributed_poller", False):
+            success, data = api.get_poller_groups()
+            if success:
+                poller_groups = data
+            else:
+                poller_group_error = data
+
         # Add our specific context
         context.update(
             {
                 "object": obj,
                 "tab": self.tab,
                 "has_librenms_id": bool(self.librenms_id),
+                "poller_groups": poller_groups,          # list of groups or None
+                "poller_group_error": poller_group_error, # optional error msg
+                "distributed_poller": getattr(api, "distributed_poller", False),
             }
         )
 
