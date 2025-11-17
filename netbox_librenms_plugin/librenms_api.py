@@ -413,6 +413,9 @@ class LibreNMSAPI:
         Returns:
             Dictionary with 'success' and 'message' keys
         """
+        
+        poller_group = data.get("poller_group")
+        
         payload = {
             "hostname": data["hostname"],
             "snmpver": data["snmp_version"],
