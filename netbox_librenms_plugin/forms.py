@@ -135,6 +135,9 @@ class AddToLIbreICMPOnly(forms.Form):
         help_text="Check to force adding the device even if device is unreachable."
     )
 
+    # new field for poller_group
+    poller_group = forms.CharField(required=False)
+    
 class AddToLIbreSNMPV2(forms.Form):
     """
     Form for adding devices to LibreNMS using SNMPv2 authentication.
@@ -160,6 +163,9 @@ class AddToLIbreSNMPV2(forms.Form):
         widget=forms.CheckboxInput(attrs={"id": "id_force_add_v2"}),
         help_text="Check to force adding the device even if device is unreachable."
     )
+
+    # new field for poller_group
+    poller_group = forms.CharField(required=False)
 
 class AddToLIbreSNMPV3(forms.Form):
     """
@@ -223,7 +229,11 @@ class AddToLIbreSNMPV3(forms.Form):
         initial=False,
         widget=forms.CheckboxInput(attrs={"id": "id_force_add_v3"}),
         help_text="Check to force adding the device even if device is unreachable."
+        
     )
+
+    # new field for poller_group
+    poller_group = forms.CharField(required=False)
 
 class DeviceStatusFilterForm(NetBoxModelFilterSetForm):
     """
