@@ -116,17 +116,17 @@ class AddToLIbreICMPOnly(forms.Form, distributed_poller):
     Form for adding devices to LibreNMS with ICMP only (no SNMP).
     """
     
-    def __init__(self, *args, distributed_poller=True, poller_group=2, **kwargs):
+    def __init__(self, *args, distributed_poller=False, poller_groups=None, **kwargs):
         """
         Dynamically add poller_group only when distributed polling is enabled.
         """
         super().__init__(*args, **kwargs)
 
         if distributed_poller:
-            poller_group = forms.CharField(required=True)
             self.fields["poller_group"] = forms.ChoiceField(
                 label="Poller Group",
                 required=True,
+                choices=poller_groups or [],   # optional, can be filled in view
             )
     
     hostname = forms.CharField(
