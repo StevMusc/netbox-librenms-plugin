@@ -67,7 +67,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
             success, data = self.librenms_api.get_poller_groups()
             if success:
                 poller_groups = data  # list of {id, group_name, descr}
-                #poller_groups = [(g["id"], g["group_name"]) for g in data]
+                zobbi = [(group["id"], group["group_name"]) for group in data]
             else:
                 poller_group_error = data  # error string
 
@@ -132,7 +132,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 "v3form": AddToLIbreSNMPV3(),
                 #"icmpform": AddToLIbreICMPOnly(),
                 # Instaintiate forms with distributed_poller true|false
-                "icmpform": AddToLIbreICMPOnly(distributed_poller=distributed_poller, poller_groups=poller_groups),
+                "icmpform": AddToLIbreICMPOnly(distributed_poller=distributed_poller, poller_groups=zobbi),
                 "librenms_device_id": self.librenms_id,
                 "found_in_librenms": librenms_info.get("found_in_librenms"),
                 "librenms_device_details": librenms_info.get("librenms_device_details"),
