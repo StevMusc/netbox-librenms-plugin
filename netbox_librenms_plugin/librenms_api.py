@@ -425,11 +425,14 @@ class LibreNMSAPI:
         }
 
         #  Only include poller_group when distributed poller is true on plugins.py
-        if getattr(self, "distributed_poller", False):
-            poller_group = data.get("poller_group")
-            # Only add if a value was actually provided
-            if poller_group:
-                payload["poller_group"] = poller_group
+        poller_group = data.get("poller_group")
+        if getattr(self, "distributed_poller", False) and poller_group not in (None, ""):
+            try:
+                # LibreNMS expects an integer here
+                payload["poller_group"] = int(poller_group)
+            except (TypeError, ValueError):
+                # If conversion fails, just don't include it
+                pass
     
   
         if data["snmp_version"] == "v2c":
