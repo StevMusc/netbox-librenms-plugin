@@ -64,12 +64,12 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         poller_group_error = None
 
         if distributed_poller:
-            success, groups = self.librenms_api.get_poller_groups()
+            success, data = self.librenms_api.get_poller_groups()
             if success:
-                #poller_groups = groups  # list of {id, group_name, descr}
-                poller_groups = [(g["id"], g["group_name"]) for g in groups]
+                #poller_groups = data  # list of {id, group_name, descr}
+                poller_groups = [(g["id"], g["group_name"]) for g in data]
             else:
-                poller_group_error = groups  # error string
+                poller_group_error = data  # error string
 
          # Add our specific context
         context.update(
