@@ -420,6 +420,11 @@ class LibreNMSAPI:
             "snmp_disable": data["snmp_disable"],
         }
 
+        # Add poller_group to payload
+        poller_group = data.get("poller_group")
+        if poller_group:
+            payload["poller_group"] = poller_group
+
         if data["snmp_version"] == "v2c":
             payload["community"] = data["community"]
             
