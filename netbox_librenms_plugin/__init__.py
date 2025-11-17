@@ -18,6 +18,7 @@ class LibreNMSSyncConfig(PluginConfig):
         "enable_caching": True,
         "verify_ssl": True,
         "interface_name_field": "ifName",
+        "distributed_poller": False,
     }
 
     def ready(self):
