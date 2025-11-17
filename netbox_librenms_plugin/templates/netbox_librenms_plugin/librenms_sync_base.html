@@ -653,11 +653,6 @@
                     id="snmpv3-form" style="display: none;">
                     {% csrf_token %}
                     <input type="hidden" name="snmp_version" value="v3">
-    			    <div class="mb-3">
-    			        <small class="text-muted">
-    			            {% trans "Unable to load poller groups:" %} {{ poller_group_error }}
-    			        </small>
-    			    </div>                
                     <div class="mb-3">
                         {{ v3form.hostname.label_tag }}
                         {{ v3form.hostname }}
@@ -671,29 +666,22 @@
                     {% endif %}
                     {% endfor %}
                     <!-- Testing Dist-Poller Placeholder-->
-    			    {% if distributed_poller and poller_groups %}
-    			    <div class="mb-3">
-    			        <label class="form-label" for="snmpv3-poller-group">{% trans "Poller Group" %}</label>
-    			        <select name="poller_group" id="snmpv3-poller-group" class="form-select">
-    			            {% for group in poller_groups %}
-    			            <option value="{{ group.id }}">
-    			                {{ group.group_name }}{% if group.descr %} – {{ group.descr }}{% endif %}
-    			            </option>
-    			            {% endfor %}
-    			        </select>
-    			    </div>
-    			    {% elif distributed_poller and poller_group_error %}
-    			    <div class="mb-3">
-    			        <small class="text-muted">
-    			            {% trans "Unable to load poller groups:" %} {{ poller_group_error }}
-    			        </small>
-    			    </div>				
-    				{% endif %} 
+                    {% if distributed_poller %}
+                    <div class="mb-3">
+                        {{ v3form.poller_group.label_tag }}
+                        {{ v3form.poller_group }}
+                        {% if poller_group_error %}
+                            <small class="text-muted">
+                                {% trans "Unable to load poller groups:" %} {{ poller_group_error }}
+                            </small>
+                        {% endif %}
+                    </div>
+                    {% endif %}             
                     <!-- Testing Dist-Poller Placeholder end-->
                     <div class="mb-3">
                         {{ v3form.force_add.label_tag }}
                         {{ v3form.force_add }}
-                    </div>                       
+                    </div>                      
                     <button type="submit" class="btn btn-primary">Add Device</button>
                 </form>
             </div>
