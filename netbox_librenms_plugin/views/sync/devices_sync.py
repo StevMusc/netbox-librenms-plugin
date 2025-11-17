@@ -37,7 +37,11 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
         """Handle the POST request to add a device to LibreNMS."""
         self.object = self.get_object(object_id)
         form_class = self.get_form_class()
-        form = form_class(request.POST)
+
+        # get distributed polling config from plugins config, need to pass it in the POST
+        distributed_poller = getattr(self.librenms_api, "distributed_poller", False)
+        
+        form = form_class(request.POST, require_poller_group=distributed_poller,)
         if form.is_valid():
             return self.form_valid(form)
         else:
