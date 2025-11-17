@@ -123,11 +123,7 @@ class AddToLIbreICMPOnly(forms.Form):
         super().__init__(*args, **kwargs)
 
         if distributed_poller:
-            self.fields["poller_group"] = forms.ChoiceField(
-                label="Poller Group",
-                required=True,
-                choices=poller_groups or [0,1,2],   # optional, can be filled in view
-            )
+            self.fields["poller_group"] = forms.CharField(required=True)
     
     hostname = forms.CharField(
         label="Hostname/IP",
