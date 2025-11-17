@@ -115,6 +115,10 @@ class AddToLIbreICMPOnly(forms.Form):
     """
     Form for adding devices to LibreNMS with ICMP only (no SNMP).
     """
+    def __init__(self, *args, require_poller_group=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["poller_group"].required = require_poller_group
+    
     hostname = forms.CharField(
         label="Hostname/IP",
         max_length=255,
@@ -136,13 +140,17 @@ class AddToLIbreICMPOnly(forms.Form):
     )
 
     # new field for poller_group
-    poller_group = forms.CharField(required=True)
+    poller_group = forms.CharField(required=False)
     
 class AddToLIbreSNMPV2(forms.Form):
     """
     Form for adding devices to LibreNMS using SNMPv2 authentication.
     Collects hostname/IP and SNMP community string information.
     """
+
+    def __init__(self, *args, require_poller_group=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["poller_group"].required = require_poller_group    
 
     hostname = forms.CharField(
         label="Hostname/IP",
@@ -165,13 +173,18 @@ class AddToLIbreSNMPV2(forms.Form):
     )
 
     # new field for poller_group
-    poller_group = forms.CharField(required=True)
+    poller_group = forms.CharField(required=False)
 
 class AddToLIbreSNMPV3(forms.Form):
     """
     Form for adding devices to LibreNMS using SNMPv3 authentication.
     Provides comprehensive SNMPv3 configuration options including authentication and encryption settings.
     """
+    
+    def __init__(self, *args, require_poller_group=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["poller_group"].required = require_poller_group
+        
     hostname = forms.CharField(
         label="Hostname/IP",
         max_length=255,
@@ -232,7 +245,7 @@ class AddToLIbreSNMPV3(forms.Form):
     )
 
     # new field for poller_group
-    poller_group = forms.CharField(required=True)
+    poller_group = forms.CharField(required=False)
 
 class DeviceStatusFilterForm(NetBoxModelFilterSetForm):
     """
