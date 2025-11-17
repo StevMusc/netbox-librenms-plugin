@@ -139,8 +139,7 @@ class AddToLIbreICMPOnly(forms.Form):
     poller_group = forms.ChoiceField(
         label="Poller Group",
         required=True,
-        initial=False,
-        widget=forms.Select(attrs={"id": "id_poller_group_icmp"}),
+        Initail=False,
     )
     
 class AddToLIbreSNMPV2(forms.Form):
@@ -173,8 +172,7 @@ class AddToLIbreSNMPV2(forms.Form):
     poller_group = forms.ChoiceField(
         label="Poller Group",
         required=True,
-        initial=False,
-        widget=forms.Select(attrs={"id": "id_poller_group_icmp"}),
+        Initail=False,
     )
 
 class AddToLIbreSNMPV3(forms.Form):
@@ -246,8 +244,7 @@ class AddToLIbreSNMPV3(forms.Form):
     poller_group = forms.ChoiceField(
         label="Poller Group",
         required=True,
-        initial=False,
-        widget=forms.Select(attrs={"id": "id_poller_group_icmp"}),
+        Initail=False,
     )
 
 class DeviceStatusFilterForm(NetBoxModelFilterSetForm):
