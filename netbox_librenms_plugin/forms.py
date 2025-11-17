@@ -157,15 +157,6 @@ class AddToLIbreSNMPV2(forms.Form):
     Collects hostname/IP and SNMP community string information.
     """
 
-    def __init__(self, *args, distributed_poller=False, poller_groups=None, **kwargs):
-        """
-        Dynamically add poller_group only when distributed polling is enabled.
-        """
-        super().__init__(*args, **kwargs)
-
-        if distributed_poller:
-            self.fields["poller_group"] = forms.CharField(required=True)
-
     hostname = forms.CharField(
         label="Hostname/IP",
         max_length=255,
@@ -187,7 +178,7 @@ class AddToLIbreSNMPV2(forms.Form):
     )
 
     # new field for poller_group
-    #poller_group = forms.CharField(required=True)
+    poller_group = forms.CharField(required=True)
 
 class AddToLIbreSNMPV3(forms.Form):
     """
