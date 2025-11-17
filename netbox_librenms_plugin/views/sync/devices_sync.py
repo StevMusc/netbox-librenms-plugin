@@ -40,7 +40,8 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
 
         # get distributed polling config from plugins config, need to pass it in the POST
         distributed_poller = getattr(self.librenms_api, "distributed_poller", False)
-        
+
+        # pass require_poller_group in the POST.
         form = form_class(request.POST, require_poller_group=distributed_poller,)
         if form.is_valid():
             return self.form_valid(form)
@@ -61,7 +62,6 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
             "snmp_version": data.get("snmp_version"),
             "force_add": data.get("force_add"),
             "snmp_disable": False,
-            #"poller_group": data.get("poller_group"),
             
         }
 
