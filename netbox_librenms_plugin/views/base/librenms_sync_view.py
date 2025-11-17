@@ -130,7 +130,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 "v2form": AddToLIbreSNMPV2(),
                 "v3form": AddToLIbreSNMPV3(),
                 # Instaintiate forms with distributed_poller true|false
-                "icmpform": AddToLIbreICMPOnly(distributed_poller=distributed_poller),
+                "icmpform": AddToLIbreICMPOnly(distributed_poller=True),
                 "librenms_device_id": self.librenms_id,
                 "found_in_librenms": librenms_info.get("found_in_librenms"),
                 "librenms_device_details": librenms_info.get("librenms_device_details"),
