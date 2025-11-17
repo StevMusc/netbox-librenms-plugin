@@ -57,6 +57,8 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
             "snmp_version": data.get("snmp_version"),
             "force_add": data.get("force_add"),
             "snmp_disable": False,
+            # Need to check if Dist polling is true first.
+            "poller_group": data.get("poller_group"),
             
         }
         if device_data["snmp_version"] == "icmp":
