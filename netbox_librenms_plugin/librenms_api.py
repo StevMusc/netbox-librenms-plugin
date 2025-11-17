@@ -421,14 +421,17 @@ class LibreNMSAPI:
             "snmpver": data["snmp_version"],
             "force_add": data["force_add"],
             "snmp_disable": data["snmp_disable"],
-            "poller_group":  data["poller_group"],
+            #"poller_group":  data["poller_group"],
         }
-        '''
-        # Add poller_group to payload
-        
-        if poller_group:
-            payload["poller_group"] = poller_group
-        '''
+
+        #  Only include poller_group when distributed poller is true on plugins.py
+        if getattr(self, "distributed_poller", False):
+            poller_group = data.get("poller_group")
+            # Only add if a value was actually provided
+            if poller_group:
+                payload["poller_group"] = poller_group
+    
+  
         if data["snmp_version"] == "v2c":
             payload["community"] = data["community"]
             
