@@ -38,7 +38,7 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
         self.object = self.get_object(object_id)
         form_class = self.get_form_class()
         #form = form_class(request.POST)
-        form = form_class(request.POST,distributed_poller=distributed_poller)
+        form = form_class(request.POST)
         if form.is_valid():
             return self.form_valid(form)
         else:
