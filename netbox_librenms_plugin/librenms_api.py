@@ -46,6 +46,7 @@ class LibreNMSAPI:
             self.api_token = config["api_token"]
             self.cache_timeout = config.get("cache_timeout", 300)
             self.verify_ssl = config.get("verify_ssl", True)
+            self.distributed_poller = config.get("distributed_poller", False)
         else:
             # Fallback to legacy single-server configuration
             self.librenms_url = get_plugin_config(
