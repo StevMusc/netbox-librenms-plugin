@@ -51,35 +51,35 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         context = super().get_context_data()
 
         # test api call to retrieve poller groups
-        #api = LibreNMSAPI()
-        # TEMP
-        #poller_groups = [
-            #{"id": 0, "group_name": "Default", "descr": "Default poller group"},
-            #{"id": 1, "group_name": "Europe", "descr": "EU region poller"},
-            #{"id": 2, "group_name": "North America", "descr": "NA region poller"},
-        #]
+        '''
+        poller_groups = [
+            {"id": 0, "group_name": "Default", "descr": "Default poller group"},
+            {"id": 1, "group_name": "Europe", "descr": "EU region poller"},
+            {"id": 2, "group_name": "North America", "descr": "NA region poller"},
+        ]
+        '''
 
         self.poller_groups = self.librenms_api.get_poller_groups()
-        
+        poller_groups = None
         poller_group_error = None
 
-        #if getattr(api, "distributed_poller", False):
-            #success, data = api.get_poller_groups()
-            #if success:
-                #poller_groups = data
-            #else:
-                #poller_group_error = data
+        if distributed_poller:
+            success, data = self.librenms_api.get_poller_groups()
+            if success:
+                poller_groups = data  # list of {id, group_name, descr}
+            else:
+                poller_group_error = data  # error string
 
-        # Add our specific context
+         # Add our specific context
         context.update(
             {
                 "object": obj,
                 "tab": self.tab,
                 "has_librenms_id": bool(self.librenms_id),
-                "poller_groups": self.poller_groups,          # list of groups or None
+                "distributed_poller": distributed_poller,
+                "poller_groups": poller_groups,          # list of groups or None
                 "poller_group_error": poller_group_error, # optional error msg
-                #"distributed_poller": getattr(api, "distributed_poller", False),
-                "distributed_poller": self.poller_groups, # static groups test
+
             }
         )
 
