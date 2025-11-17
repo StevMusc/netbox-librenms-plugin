@@ -115,16 +115,6 @@ class AddToLIbreICMPOnly(forms.Form):
     """
     Form for adding devices to LibreNMS with ICMP only (no SNMP).
     """
-    
-    def __init__(self, *args, distributed_poller=False, poller_groups=None, **kwargs):
-        """
-        Dynamically add poller_group only when distributed polling is enabled.
-        """
-        super().__init__(*args, **kwargs)
-
-        if distributed_poller:
-            self.fields["poller_group"] = forms.CharField(required=True)
-    
     hostname = forms.CharField(
         label="Hostname/IP",
         max_length=255,
@@ -146,7 +136,7 @@ class AddToLIbreICMPOnly(forms.Form):
     )
 
     # new field for poller_group
-    #poller_group = forms.CharField(required=True)
+    poller_group = forms.CharField(required=True)
     
 class AddToLIbreSNMPV2(forms.Form):
     """
@@ -182,19 +172,6 @@ class AddToLIbreSNMPV3(forms.Form):
     Form for adding devices to LibreNMS using SNMPv3 authentication.
     Provides comprehensive SNMPv3 configuration options including authentication and encryption settings.
     """
-
-    def __init__(self, *args, distributed_poller=False, poller_groups=None, **kwargs):
-        """
-        Dynamically add poller_group only when distributed polling is enabled.
-        """
-        super().__init__(*args, **kwargs)
-
-        if distributed_poller:
-            self.fields["poller_group"] = forms.ChoiceField(
-                label="Poller Group",
-                required=True,
-            )
-
     hostname = forms.CharField(
         label="Hostname/IP",
         max_length=255,
@@ -255,7 +232,7 @@ class AddToLIbreSNMPV3(forms.Form):
     )
 
     # new field for poller_group
-    #poller_group = forms.CharField(required=True)
+    poller_group = forms.CharField(required=True)
 
 class DeviceStatusFilterForm(NetBoxModelFilterSetForm):
     """
