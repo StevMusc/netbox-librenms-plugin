@@ -59,7 +59,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         ]
         '''
 
-        self.poller_groups = self.librenms_api.get_poller_groups()
+        distributed_poller = getattr(self.librenms_api, "distributed_poller", False)
         poller_groups = None
         poller_group_error = None
 
