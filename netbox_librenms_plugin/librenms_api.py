@@ -414,7 +414,7 @@ class LibreNMSAPI:
             Dictionary with 'success' and 'message' keys
         """
         
-        poller_group = data.get("poller_group")
+        #poller_group = data.["poller_group")
         
         payload = {
             "hostname": data["hostname"],
@@ -425,7 +425,7 @@ class LibreNMSAPI:
         }
         '''
         # Add poller_group to payload
-        poller_group = data.get("poller_group")
+        poller_group = data["poller_group"]
         if poller_group:
             payload["poller_group"] = poller_group
         '''
