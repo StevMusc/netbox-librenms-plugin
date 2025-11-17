@@ -57,10 +57,16 @@ class AddDeviceToLibreNMSView(LibreNMSAPIMixin, View):
             "snmp_version": data.get("snmp_version"),
             "force_add": data.get("force_add"),
             "snmp_disable": False,
-            # Need to check if Dist polling is true first.
-            "poller_group": data.get("poller_group"),
+            #"poller_group": data.get("poller_group"),
             
         }
+
+        # Include poller_group ONLY if distributed polling enabled
+        if self.librenms_api.distributed_poller:
+            poller_group = data.get("poller_group")
+            if poller_group:
+                device_data["poller_group"] = poller_group
+            
         if device_data["snmp_version"] == "icmp":
             # If the user submited icmp check only, change snmp_disable payload to true
             device_data.update(
