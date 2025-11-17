@@ -126,7 +126,7 @@ class AddToLIbreICMPOnly(forms.Form):
             self.fields["poller_group"] = forms.ChoiceField(
                 label="Poller Group",
                 required=True,
-                choices=poller_groups or [],   # optional, can be filled in view
+                choices=poller_groups or [0,1,2],   # optional, can be filled in view
             )
     
     hostname = forms.CharField(
