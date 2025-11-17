@@ -139,7 +139,7 @@ class AddToLIbreICMPOnly(forms.Form):
     poller_group = forms.ChoiceField(
         label="Poller Group",
         required=False,
-        choices=[],  # will be set dynamically
+        initial=False,
         widget=forms.Select(attrs={"id": "id_poller_group_icmp"}),
     )
     
@@ -173,7 +173,7 @@ class AddToLIbreSNMPV2(forms.Form):
     poller_group = forms.ChoiceField(
         label="Poller Group",
         required=False,
-        choices=[],  # will be set dynamically
+        initial=False,
         widget=forms.Select(attrs={"id": "id_poller_group_icmp"}),
     )
 
@@ -246,7 +246,7 @@ class AddToLIbreSNMPV3(forms.Form):
     poller_group = forms.ChoiceField(
         label="Poller Group",
         required=False,
-        choices=[],  # will be set dynamically
+        initial=False,
         widget=forms.Select(attrs={"id": "id_poller_group_icmp"}),
     )
 
