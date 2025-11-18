@@ -72,10 +72,10 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         # Generic vars, if they exist
         hostname_initial = getattr(obj, "name", "")
 
-        # SNMPv2 specific vars,  if they exist
+        # SNMPv2 specific vars,  if they exist, otherwise return ""
         snmpv2_community_initial = obj.custom_field_data.get("snmpv2_community") or ""
 
-        # SNMPv3 specific vars, if they exist
+        # SNMPv3 specific vars, if they exist, otherwise return ""
         snmpv3_authname_initial = obj.custom_field_data.get("snmpv3_auth_user") or ""
         snmpv3_authpass_initial = obj.custom_field_data.get("snmpv3_auth_pass") or ""
         snmpv3_cryptopass_initial = obj.custom_field_data.get("snmpv3_crypto_pass") or ""
