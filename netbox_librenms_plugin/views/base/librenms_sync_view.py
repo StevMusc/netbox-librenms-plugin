@@ -69,6 +69,10 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
 
         # var to preload form hostname field with device name from netbox
         hostname_initial = getattr(obj, "name", "")
+        snmpv2_community_initial = getattr(obj.custom_field_data.get("snmpv2_community") or "")
+        snmpv3_authuser_initial = (obj.custom_field_data.get("snmpv3_auth_user") or "")
+        snmpv3_authpass_initial = (obj.custom_field_data.get("snmpv3_auth_pass") or "")
+        snmpv3_cryptopass_initial = (obj.custom_field_data.get("snmpv3_crypto_pass") or "")
 
         if distributed_poller:
             success, data = self.librenms_api.get_poller_groups()
@@ -138,8 +142,13 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 # Call the forms (GET) with the require_poller_group flag, 
                 # pass initial pre-sets to the form from netbox db
                 
-                "v2form": AddToLIbreSNMPV2(initial={"hostname": hostname_initial},
-                                           require_poller_group=distributed_poller),                       
+                "v2form": AddToLIbreSNMPV2
+                    (initial={
+                        "hostname": hostname_initial
+                        "snmp_version": snmpv2_community_initial,
+                    },
+                    require_poller_group=distributed_poller
+                ),
 
                 "v3form": AddToLIbreSNMPV3(initial={"hostname": hostname_initial},
                                            require_poller_group=distributed_poller),       
