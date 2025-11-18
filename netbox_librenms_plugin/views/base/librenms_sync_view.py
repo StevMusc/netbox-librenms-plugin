@@ -145,7 +145,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 "v2form": AddToLIbreSNMPV2
                     (initial={
                         "hostname": hostname_initial,
-                        "snmp_version": snmpv2_community_initial,
+                        "community": snmpv2_community_initial,
                     },
                     require_poller_group=distributed_poller
                 ),
