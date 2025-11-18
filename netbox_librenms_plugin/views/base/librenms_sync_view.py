@@ -69,12 +69,20 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
 
         # preload form fields with device params from netbox db.
         
+        # Generic vars, if they exist
         hostname_initial = getattr(obj, "name", "")
+
+        # SNMPv2 specific vars,  if they exist
         snmpv2_community_initial = obj.custom_field_data.get("snmpv2_community") or ""
+
+        # SNMPv3 specific vars, if they exist
         snmpv3_authname_initial = obj.custom_field_data.get("snmpv3_auth_user") or ""
         snmpv3_authpass_initial = obj.custom_field_data.get("snmpv3_auth_pass") or ""
         snmpv3_cryptopass_initial = obj.custom_field_data.get("snmpv3_crypto_pass") or ""
         snmpv3_authlevel_initial = obj.custom_field_data.get("snmpv3_auth_level") or ""
+        snmpv3_cryptoalgo_initial = obj.custom_field_data.get("snmpv3_crypto_algo") or ""
+        snmpv3_authalgo_initial = obj.custom_field_data.get("snmpv3_auth_algo") or ""
+        
 
         if distributed_poller:
             success, data = self.librenms_api.get_poller_groups()
@@ -158,7 +166,9 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                         "authlevel": snmpv3_authlevel_initial,
                         "authname": snmpv3_authname_initial,
                         "authpass": snmpv3_authpass_initial,
-                        "cryptopass": snmpv3_cryptopass_initial,                        
+                        "cryptopass": snmpv3_cryptopass_initial,
+                        "cryptoalgo": snmpv3_cryptoalgo_initial,
+                        "authalgo": snmpv3_authalgo_initial,                        
                     },
                     require_poller_group=distributed_poller
                 ),      
