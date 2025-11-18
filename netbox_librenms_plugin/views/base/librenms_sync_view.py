@@ -50,18 +50,25 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         # Get context from parent classes (including LibreNMSAPIMixin)
         context = super().get_context_data()
 
-        # test api call to retrieve poller groups
+       
         '''
+        api call to retrieve poller groups. 
+        Expected Response
+
         poller_groups = [
             {"id": 0, "group_name": "Default", "descr": "Default poller group"},
             {"id": 1, "group_name": "Europe", "descr": "EU region poller"},
             {"id": 2, "group_name": "North America", "descr": "NA region poller"},
         ]
+        
         '''
 
         distributed_poller = getattr(self.librenms_api, "distributed_poller", False)
         poller_groups = None
         poller_group_error = None
+
+        # var to preload form hostname field with device name from netbox
+        hostname_initial = getattr(obj, "name", "")
 
         if distributed_poller:
             success, data = self.librenms_api.get_poller_groups()
@@ -131,7 +138,13 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 # Call the forms (GET) with the require_poller_group flag
                 
                 "v2form": AddToLIbreSNMPV2(require_poller_group=distributed_poller),
-                "v3form": AddToLIbreSNMPV3(require_poller_group=distributed_poller),
+                
+                #"v3form": AddToLIbreSNMPV3(require_poller_group=distributed_poller),
+                v3form = AddToLIbreSNMPV3(
+                    initial={"hostname": hostname_initial},
+                    require_poller_group=distributed_poller,
+                )	
+                
                 "icmpform": AddToLIbreICMPOnly(require_poller_group=distributed_poller),
                 "librenms_device_id": self.librenms_id,
                 "found_in_librenms": librenms_info.get("found_in_librenms"),
