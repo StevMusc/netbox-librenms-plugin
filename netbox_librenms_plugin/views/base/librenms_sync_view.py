@@ -69,10 +69,10 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
 
         # var to preload form hostname field with device name from netbox
         hostname_initial = getattr(obj, "name", "")
-        snmpv2_community_initial = getattr(obj.custom_field_data.get("snmpv2_community") or "")
-        snmpv3_authuser_initial = (obj.custom_field_data.get("snmpv3_auth_user") or "")
-        snmpv3_authpass_initial = (obj.custom_field_data.get("snmpv3_auth_pass") or "")
-        snmpv3_cryptopass_initial = (obj.custom_field_data.get("snmpv3_crypto_pass") or "")
+        snmpv2_community_initial = obj.custom_field_data.get("snmpv2_community") or "")
+        #snmpv3_authuser_initial = (obj.custom_field_data.get("snmpv3_auth_user") or "")
+        #snmpv3_authpass_initial = (obj.custom_field_data.get("snmpv3_auth_pass") or "")
+        #snmpv3_cryptopass_initial = (obj.custom_field_data.get("snmpv3_crypto_pass") or "")
 
         if distributed_poller:
             success, data = self.librenms_api.get_poller_groups()
