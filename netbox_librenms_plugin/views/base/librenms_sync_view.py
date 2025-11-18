@@ -157,7 +157,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 "v2form": AddToLIbreSNMPV2
                     (initial={
                         "hostname": hostname_initial,
-                        "poller_group" pollergroup_initial,                        
+                        "poller_group": pollergroup_initial,                        
                         "community": snmpv2_community_initial,
                     },
                     require_poller_group=distributed_poller
@@ -166,7 +166,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 "v3form": AddToLIbreSNMPV3                    
                     (initial={
                         "hostname": hostname_initial,
-                        "poller_group" pollergroup_initial,
+                        "poller_group": pollergroup_initial,
                         "authlevel": snmpv3_authlevel_initial,
                         "authname": snmpv3_authname_initial,
                         "authpass": snmpv3_authpass_initial,
