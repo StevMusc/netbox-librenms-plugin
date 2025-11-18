@@ -135,14 +135,18 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 "cable_sync": cable_context,
                 "ip_sync": ip_context,
                 
-                # Call the forms (GET) with the require_poller_group flag
+                # Call the forms (GET) with the require_poller_group flag, 
+                # pass initial pre-sets to the form from netbox db
                 
-                "v2form": AddToLIbreSNMPV2(require_poller_group=distributed_poller),
-                
-                #"v3form": AddToLIbreSNMPV3(require_poller_group=distributed_poller),
+                "v2form": AddToLIbreSNMPV2(initial={"hostname": hostname_initial},
+                                           require_poller_group=distributed_poller),                       
+
                 "v3form": AddToLIbreSNMPV3(initial={"hostname": hostname_initial},
                                            require_poller_group=distributed_poller),       
-                "icmpform": AddToLIbreICMPOnly(require_poller_group=distributed_poller),
+                
+                "icmpform": AddToLIbreICMPOnly(initial={"hostname": hostname_initial},
+                                           require_poller_group=distributed_poller),       
+                
                 "librenms_device_id": self.librenms_id,
                 "found_in_librenms": librenms_info.get("found_in_librenms"),
                 "librenms_device_details": librenms_info.get("librenms_device_details"),
