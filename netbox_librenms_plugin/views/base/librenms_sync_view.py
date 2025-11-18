@@ -71,7 +71,6 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         
         # Generic vars, if they exist
         hostname_initial = getattr(obj, "name", "")
-        pollergroup_initial = obj.custom_field_data.get("librenms_pollergroup") or ""
 
         # SNMPv2 specific vars,  if they exist
         snmpv2_community_initial = obj.custom_field_data.get("snmpv2_community") or ""
@@ -82,9 +81,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         snmpv3_cryptopass_initial = obj.custom_field_data.get("snmpv3_crypto_pass") or ""
         snmpv3_authlevel_initial = obj.custom_field_data.get("snmpv3_auth_level") or ""
         snmpv3_cryptoalgo_initial = obj.custom_field_data.get("snmpv3_crypto_algo") or ""
-        snmpv3_authalgo_initial = obj.custom_field_data.get("snmpv3_auth_algo") or ""
-        snmpv3_test_initial = obj.custom_field_data.get("snmpv3_test_field") or ""        
-        
+        snmpv3_authalgo_initial = obj.custom_field_data.get("snmpv3_auth_algo") or ""    
 
         if distributed_poller:
             success, data = self.librenms_api.get_poller_groups()
@@ -156,8 +153,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 
                 "v2form": AddToLIbreSNMPV2
                     (initial={
-                        "hostname": hostname_initial,
-                        "poller_group": pollergroup_initial,                        
+                        "hostname": hostname_initial,                      
                         "community": snmpv2_community_initial,
                     },
                     require_poller_group=distributed_poller
@@ -172,14 +168,17 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                         "authpass": snmpv3_authpass_initial,
                         "cryptopass": snmpv3_cryptopass_initial,
                         "cryptoalgo": snmpv3_cryptoalgo_initial,
-                        "authalgo": snmpv3_authalgo_initial,
-                        "testfield": snmpv3_test_initial,                        
+                        "authalgo": snmpv3_authalgo_initial,                       
                     },
                     require_poller_group=distributed_poller
                 ),      
                 
-                "icmpform": AddToLIbreICMPOnly(initial={"hostname": hostname_initial},
-                                           require_poller_group=distributed_poller),       
+                "icmpform": AddToLIbreICMPOnly
+                    (initial={
+                        "hostname": hostname_initial
+                    },
+                    require_poller_group=distributed_poller
+                ),       
                 
                 "librenms_device_id": self.librenms_id,
                 "found_in_librenms": librenms_info.get("found_in_librenms"),
