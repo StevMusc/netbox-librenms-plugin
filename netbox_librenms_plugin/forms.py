@@ -140,7 +140,7 @@ class AddToLIbreICMPOnly(forms.Form):
     )
 
     # new field for poller_group
-    poller_group = forms.CharField(required=False, initial=None)
+    poller_group = forms.CharField(required=False, initial=3)
     
 class AddToLIbreSNMPV2(forms.Form):
     """
