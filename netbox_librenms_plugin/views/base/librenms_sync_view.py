@@ -67,12 +67,13 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         poller_groups = None
         poller_group_error = None
 
-        # var to preload form hostname field with device name from netbox
+        # preload form fields with device params from netbox db.
+        
         hostname_initial = getattr(obj, "name", "")
         snmpv2_community_initial = obj.custom_field_data.get("snmpv2_community") or ""
-        #snmpv3_authuser_initial = (obj.custom_field_data.get("snmpv3_auth_user") or "")
-        #snmpv3_authpass_initial = (obj.custom_field_data.get("snmpv3_auth_pass") or "")
-        #snmpv3_cryptopass_initial = (obj.custom_field_data.get("snmpv3_crypto_pass") or "")
+        snmpv3_authname_initial = obj.custom_field_data.get("snmpv3_auth_user") or ""
+        snmpv3_authpass_initial = obj.custom_field_data.get("snmpv3_auth_pass") or ""
+        snmpv3_cryptopass_initial = obj.custom_field_data.get("snmpv3_crypto_pass") or ""
 
         if distributed_poller:
             success, data = self.librenms_api.get_poller_groups()
@@ -150,8 +151,15 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                     require_poller_group=distributed_poller
                 ),
 
-                "v3form": AddToLIbreSNMPV3(initial={"hostname": hostname_initial},
-                                           require_poller_group=distributed_poller),       
+                "v3form": AddToLIbreSNMPV3                    
+                    (initial={
+                        "hostname": hostname_initial,
+                        "authname": snmpv3_authname_initial,
+                        "authpass": snmpv3_authpass_initial,
+                        "cryptopass": snmpv3_cryptopass_initial,                        
+                    },
+                    require_poller_group=distributed_poller
+                ),      
                 
                 "icmpform": AddToLIbreICMPOnly(initial={"hostname": hostname_initial},
                                            require_poller_group=distributed_poller),       
