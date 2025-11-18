@@ -82,6 +82,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         snmpv3_authlevel_initial = obj.custom_field_data.get("snmpv3_auth_level") or ""
         snmpv3_cryptoalgo_initial = obj.custom_field_data.get("snmpv3_crypto_algo") or ""
         snmpv3_authalgo_initial = obj.custom_field_data.get("snmpv3_auth_algo") or ""
+        snmpv3_test_initial = obj.custom_field_data.get("snmpv3_test_field") or ""        
         
 
         if distributed_poller:
@@ -168,7 +169,8 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                         "authpass": snmpv3_authpass_initial,
                         "cryptopass": snmpv3_cryptopass_initial,
                         "cryptoalgo": snmpv3_cryptoalgo_initial,
-                        "authalgo": snmpv3_authalgo_initial,                        
+                        "authalgo": snmpv3_authalgo_initial,
+                        "testfield": snmpv3_test_initial,                        
                     },
                     require_poller_group=distributed_poller
                 ),      
