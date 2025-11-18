@@ -74,6 +74,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
         snmpv3_authname_initial = obj.custom_field_data.get("snmpv3_auth_user") or ""
         snmpv3_authpass_initial = obj.custom_field_data.get("snmpv3_auth_pass") or ""
         snmpv3_cryptopass_initial = obj.custom_field_data.get("snmpv3_crypto_pass") or ""
+        snmpv3_authlevel_initial = obj.custom_field_data.get("snmpv3_auth_level") or ""
 
         if distributed_poller:
             success, data = self.librenms_api.get_poller_groups()
@@ -154,6 +155,7 @@ class BaseLibreNMSSyncView(LibreNMSAPIMixin, generic.ObjectListView):
                 "v3form": AddToLIbreSNMPV3                    
                     (initial={
                         "hostname": hostname_initial,
+                        "authlevel": snmpv3_authlevel_initial,
                         "authname": snmpv3_authname_initial,
                         "authpass": snmpv3_authpass_initial,
                         "cryptopass": snmpv3_cryptopass_initial,                        
