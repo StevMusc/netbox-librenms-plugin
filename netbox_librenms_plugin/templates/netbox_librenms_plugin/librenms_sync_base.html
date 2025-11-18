@@ -585,7 +585,7 @@
                     {% if distributed_poller and poller_groups %}
                     <div class="mb-3">
                         <label class="form-label" for="icmp-poller-group">{% trans "Poller Group" %}</label>
-                        <select name="poller_group" id="icmp-poller-group" class="form-select">
+                        <select name="poller_group" id="icmp-poller-group" class="form-select" required>
                             {% for group in poller_groups %}
                             <option value="{{ group.id }}">
                                 {{ group.group_name }}{% if group.descr %} – {{ group.descr }}{% endif %}
@@ -625,7 +625,7 @@
 					{% if distributed_poller and poller_groups %}
     				<div class="mb-3">
     				    <label class="form-label" for="snmpv2-poller-group">{% trans "Poller Group" %}</label>
-    				    <select name="poller_group" id="snmpv2-poller-group" class="form-select">
+    				    <select name="poller_group" id="snmpv2-poller-group" class="form-select" required>
     				        {% for group in poller_groups %}
     				        <option value="{{ group.id }}">
     				            {{ group.group_name }}{% if group.descr %} – {{ group.descr }}{% endif %}
@@ -666,17 +666,24 @@
                     {% endif %}
                     {% endfor %}
                     <!-- Testing Dist-Poller Placeholder-->
-                    {% if distributed_poller %}
-                    <div class="mb-3">
-                        {{ v3form.poller_group.label_tag }}
-                        {{ v3form.poller_group }}
-                        {% if poller_group_error %}
-                            <small class="text-muted">
-                                {% trans "Unable to load poller groups:" %} {{ poller_group_error }}
-                            </small>
-                        {% endif %}
-                    </div>
-                    {% endif %}             
+					{% if distributed_poller and poller_groups %}
+    				<div class="mb-3">
+    				    <label class="form-label" for="snmpv3-poller-group">{% trans "Poller Group" %}</label>
+    				    <select name="poller_group" id="snmpv3-poller-group" class="form-select" required>
+    				        {% for group in poller_groups %}
+    				        <option value="{{ group.id }}">
+    				            {{ group.group_name }}{% if group.descr %} – {{ group.descr }}{% endif %}
+    				        </option>
+    				        {% endfor %}
+    				    </select>
+    				</div>
+    				{% elif distributed_poller and poller_group_error %}
+    				<div class="mb-3">
+    				    <small class="text-muted">
+    				        {% trans "Unable to load poller groups:" %} {{ poller_group_error }}
+    				    </small>
+    				</div>
+    				{% endif %}                
                     <!-- Testing Dist-Poller Placeholder end-->
                     <div class="mb-3">
                         {{ v3form.force_add.label_tag }}
